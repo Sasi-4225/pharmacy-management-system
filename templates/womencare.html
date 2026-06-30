@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WomenCare - Pharmacy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+      .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0fbff5;
+      padding: 15px;
+      color: white;
+    }
+    .header img {
+      height: 40px;
+    }
+ .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .nav-links button:hover {
+            background: white;
+            color: #0fbff5;
+}
+    .navbar {
+      background-color: #9fcffc;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .product {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      width: 220px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .product h3 {
+      font-size: 18px;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    .product p {
+      font-size: 14px;
+      margin: 2px 0;
+      color: #555;
+    }
+
+    .product button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color:black;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .product button:hover {
+      background-color: #333;
+    }
+
+    .footer {
+      background-color: #f1f1f1;
+      color: #888;
+      text-align: center;
+      padding: 10px;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
+<script>
+  function addToCart(name, image, price) {
+    // Retrieve existing cart or initialize empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add new product to the cart
+    cart.push({ name, image, price });
+
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Show a confirmation popup
+    alert(`${name} has been added to your cart!`);
+
+    // Ask the user if they want to view the cart
+    let choice = confirm("Do you want to view your cart?");
+
+    // Redirect to orders.html if the user clicks OK
+    if (choice) {
+      window.location.href = 'add to cart.html';
+    }
+  }
+</script>
+</head>
+<body>
+<div class="header">
+    <img src="pharmacy.jpg" alt="Company Logo">
+<div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='products.html'">Products</button>
+            <button onclick="location.href='add to cart.html'">Add to cart</button>
+	    <button onclick="location.href='orders.html'">Orders</button>
+            <button onclick="location.href='login2.html'">Login</button>
+        </div>
+  </div>
+
+  <div class="navbar">WomenCare Products</div>
+
+
+  <div class="product-container">
+    <!-- Tablets -->
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/9122AXYesWL.AC_UL320.jpg" alt="Folvite Tablet">
+      <h3>Folvite Tablet</h3>
+      <p>Strength: 5 mg</p>
+      <p>Cost: 272/-</p>
+<button onclick="addToCart('Folvite Tablet', 'https://m.media-amazon.com/images/I/9122AXYesWL.AC_UL320.jpg', '272/-')">
+  Add to Cart
+</button>
+
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71Q6mzPq6ML.AC_UL320.jpg" alt="Primolut-N">
+      <h3>Primolut-N</h3>
+      <p>Strength: 5 mg</p>
+      <p>Cost: 51/-</p>
+<button onclick="addToCart('Primolut-N', 'https://m.media-amazon.com/images/I/71Q6mzPq6ML.AC_UL320.jpg', '51/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/9172TLO9DDL.AC_UL320.jpg" alt="Meprate">
+      <h3>Meprate 10mg</h3>
+      <p>Strength: 10 mg</p>
+      <p>Cost: 59/-</p><button onclick="addToCart('Meprate 10mg', 'https://m.media-amazon.com/images/I/9172TLO9DDL.AC_UL320.jpg', '59/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/615t9SprA2L.AC_UL320.jpg" alt="Bifolate">
+      <h3>Bifolate</h3>
+      <p>Strength: 200 mcg</p>
+      <p>Cost: 264/-</p>
+<button onclick="addToCart('Bifolate', 'https://m.media-amazon.com/images/I/615t9SprA2L.AC_UL320.jpg', '264/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/41tGWNnWAoL.AC_UL320.jpg" alt="Womens Multivitamins">
+      <h3>Womens Multivitamins</h3>
+      <p>Cost: 235/-</p>
+<button onclick="addToCart('Womens Multivitamins', 'https://m.media-amazon.com/images/I/41tGWNnWAoL.AC_UL320.jpg', '235/-')">Add to Cart
+    </div>
+
+    <!-- Syrups and Washes -->
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71M6McgXktL.AC_UL320.jpg" alt="Gynocrat plus Syrup">
+      <h3>Gynocrat plus Syrup</h3>
+      <p>200 ml</p>
+      <p>Cost: 410/-</p>
+<button onclick="addToCart('Gynocrat plus Syrup', 'https://m.media-amazon.com/images/I/71M6McgXktL.AC_UL320.jpg', '410/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71pkY7giZaL.AC_UL320.jpg" alt="Everteen Wash">
+      <h3>Everteen Intimate Wash</h3>
+      <p>100 ml</p>
+      <p>Cost: 169/-</p>
+<button onclick="addToCart('Everteen Intimate Wash', 'https://m.media-amazon.com/images/I/71pkY7giZaL.AC_UL320.jpg', '169/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/81HG9tqQtfL.AC_UL320.jpg" alt="VWash Plus">
+      <h3>VWash Plus</h3>
+      <p>100 ml</p>
+      <p>Cost: 160/-</p>
+<button onclick="addToCart('VWash Plus', 'https://m.media-amazon.com/images/I/81HG9tqQtfL.AC_UL320.jpg', '160/-')">Add to Cart
+    </div>
+
+    <!-- Test Kits and Hygiene -->
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/61ZWlYCpzPL.AC_UL320.jpg" alt="Pregnancy Kit">
+      <h3>Prega News Kit</h3>
+      <p>Single Use</p>
+      <p>Cost: 189/-</p>
+<button onclick="addToCart('Prega News Kit', 'https://m.media-amazon.com/images/I/61ZWlYCpzPL.AC_UL320.jpg', '189/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/619HlWhjmIS.AC_UL320.jpg" alt="Mamaearth Cream">
+      <h3>Stretch Mark Cream</h3>
+      <p>100 gm</p>
+      <p>Cost: 349/-</p>
+<button onclick="addToCart('Stretch Mark Cream', 'https://m.media-amazon.com/images/I/619HlWhjmIS.AC_UL320.jpg', '349/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/51EuwDO+xkL.AC_UL320.jpg" alt="Moisurising cream">
+      <h3>Moisurising cream</h3>
+      <p>100 ml</p>
+      <p>Cost: 350/-</p>
+<button onclick="addToCart('Moisurising cream', 'https://m.media-amazon.com/images/I/51EuwDO+xkL.AC_UL320.jpg', '350/-')">Add to Cart
+    </div>
+
+    <!-- Additional Items -->
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/81lzumE1WwL.AC_UL320.jpg" alt="Ustraa Iron Tablets">
+      <h3>Iron & Folic Acid</h3>
+      <p>60 Tablets</p>
+      <p>Cost: 250/-</p>
+<button onclick="addToCart('Iron & Folic Acid', 'https://m.media-amazon.com/images/I/81lzumE1WwL.AC_UL320.jpg', '250/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71r2pDzJG0L.AC_UL320.jpg" alt="Manforce Prenatal">
+      <h3>Manforce Prenatal Care</h3>
+      <p>strip of 9 tablets</p>
+      <p>Cost: 225/-</p>
+<button onclick="addToCart('Manforce Prenatal Care', 'https://m.media-amazon.com/images/I/71r2pDzJG0L.AC_UL320.jpg', '225/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/61OU7zSs-6L.AC_UL320.jpg"Sirona Sanitary Disposal">
+      <h3>Sanitary Disposal Bags</h3>
+      <p>Pack of 3</p>
+      <p>Cost: 169/-</p>
+<button onclick="addToCart('Sanitary Disposal Bags', 'https://m.media-amazon.com/images/I/61OU7zSs-6L.AC_UL320.jpg', '169/-')">Add to Cart
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71jt2yhYuRL.AC_UL320.jpg" alt="DiabeSmart Dia care juice">
+      <h3>DiabeSmart Dia care juice</h3>
+      <p>1 Litre</p>
+      <p>Cost: 499/-</p>
+<button onclick="addToCart('DiabeSmart Dia care juice', 'https://m.media-amazon.com/images/I/71jt2yhYuRL.AC_UL320.jpg', '499/-')">Add to Cart
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 WomenCare Pharmacy. All rights reserved.
+  </div>
+
+</body>
+</html>

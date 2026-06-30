@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Light Blue Theme Login</title>
+
+  <style>
+/* Unique Neon Glow Animation */
+.container {
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Input focus with neon glow effect */
+input:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.8);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Glowing button effect */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.5) 10%, transparent 80%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+button:hover::before {
+    opacity: 1;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
+
+/* Floating panel effect */
+.left-panel, .right-panel {
+    animation: floatEffect 3s ease-in-out infinite;
+}
+
+@keyframes floatEffect {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Fade-in effect for switching forms */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
+}
+
+.hidden:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+
+      font-family: 'Poppins', sans-serif;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      height: 100vh;
+
+      background: #e3f2fd;
+
+    }
+
+    .container {
+
+      display: flex;
+
+      width: 800px;
+
+      border-radius: 10px;
+
+      overflow: hidden;
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      position: relative;
+
+      transition: transform 0.5s ease-in-out;
+
+    }
+
+    .left-panel, .right-panel {
+
+      flex: 1;
+
+      padding: 40px;
+
+      transition: transform 0.5s ease-in-out;
+
+    }
+
+    .left-panel { background: white; }
+
+    .right-panel {
+
+      background: linear-gradient(to right, #007BFF, #0056b3);
+
+      color: white;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      flex-direction: column;
+
+      text-align: center;
+
+    }
+
+    h2 { margin-bottom: 20px; }
+
+    input {
+
+      width: 100%;
+
+      padding: 12px;
+
+      margin: 10px 0;
+
+      border: 1px solid #ccc;
+
+      border-radius: 5px;
+
+      font-size: 14px;
+
+      transition: all 0.3s ease-in-out;
+
+    }
+
+    input:focus {
+
+      border-color: #007BFF;
+
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
+
+      transform: scale(1.05);
+
+    }
+
+    button {
+
+      width: 100%;
+
+      padding: 12px;
+
+      background: #007BFF;
+
+      border: none;
+
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      border-radius: 5px;
+
+      font-weight: 500;
+
+      transition: all 0.3s ease-in-out;
+
+    }
+
+    button:hover {
+
+      background:#0056b3;
+
+      transform: scale(1.08);
+
+    }
+
+    .error-message { color: red; font-size: 14px; margin-top: 10px; }
+
+    .hidden { display: none; }
+
+    .forgot-password {
+
+      margin-top: 10px;
+
+      color: #004d45;
+
+      cursor: pointer;
+
+      text-decoration: underline;
+
+      font-size: 14px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="left-panel">
+
+      <div id="login-form">
+
+        <h2>Sign In</h2>
+
+        <input type="text" id="login-username" placeholder="Username" required />
+
+        <input type="password" id="login-password" placeholder="Password" required />
+
+        <button onclick="validateLogin()">Sign In</button>
+
+        <div class="error-message" id="login-error"></div>
+
+        <div class="forgot-password" onclick="showForgotPassword()">Forgot Password?</div>
+
+      </div>
+
+      <div id="signup-form" class="hidden">
+
+        <h2>Create Account</h2>
+
+        <input type="text" id="signup-username" placeholder="New Username" required />
+
+        <input type="password" id="signup-password" placeholder="New Password" required />
+
+        <button onclick="validateSignup()">Create Account</button>
+
+        <div class="error-message" id="signup-error"></div>
+
+      </div>
+
+      <div id="forgot-password-form" class="hidden">
+
+        <h2>Reset Password</h2>
+
+        <input type="text" id="reset-username" placeholder="Enter your username" required />
+
+        <input type="password" id="new-password" placeholder="Enter new password" required />
+
+        <button onclick="resetPassword()">Reset Password</button>
+
+        <div class="error-message" id="reset-error"></div>
+
+      </div>
+
+    </div>
+
+    <div class="right-panel">
+
+      <h2>Welcome to 24Pharmacy</h2>
+
+      <button id="toggle-button" onclick="toggleForm()">Don't have an account? Create one</button>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function showForm(formId) {
+
+      document.getElementById("login-form").classList.add("hidden");
+
+      document.getElementById("signup-form").classList.add("hidden");
+
+      document.getElementById("forgot-password-form").classList.add("hidden");
+
+      document.getElementById(formId).classList.remove("hidden");
+
+    }
+
+    function validateSignup() {
+
+      const username = document.getElementById("signup-username").value.trim();
+
+      const password = document.getElementById("signup-password").value.trim();
+
+      const error = document.getElementById("signup-error");
+
+      if (username.length < 6 || password.length < 8) {
+
+        error.textContent = "Username must be at least 6 and password at least 8 characters.";
+
+      } else {
+
+        localStorage.setItem("username", username);
+
+        localStorage.setItem("password", password);
+
+        alert("Account created successfully!");
+
+        showForm("login-form");
+
+        document.getElementById("toggle-button").textContent = "Don't have an account? Create one";
+
+      }
+
+    }
+
+    function validateLogin() {
+
+      const username = document.getElementById("login-username").value.trim();
+
+      const password = document.getElementById("login-password").value.trim();
+
+      const error = document.getElementById("login-error");
+
+      if (username === localStorage.getItem("username") && password === localStorage.getItem("password")) {
+
+        alert("Login successful!");
+
+        window.location.href = "home.html";
+
+      } else {
+
+        error.textContent = "Invalid username or password!";
+
+      }
+
+    }
+
+    function toggleForm() {
+
+      const toggleButton = document.getElementById("toggle-button");
+
+      const isLoginVisible = !document.getElementById("login-form").classList.contains("hidden");
+
+      if (isLoginVisible) {
+
+        showForm("signup-form");
+
+        toggleButton.textContent = "Already have an account? Sign In";
+
+      } else {
+
+        showForm("login-form");
+
+        toggleButton.textContent = "Don't have an account? Create one";
+
+      }
+
+    }
+
+    function showForgotPassword() {
+
+      showForm("forgot-password-form");
+
+    }
+
+    function resetPassword() {
+
+      const username = document.getElementById("reset-username").value.trim();
+
+      const newPassword = document.getElementById("new-password").value.trim();
+
+      const error = document.getElementById("reset-error");
+
+      if (username === localStorage.getItem("username")) {
+
+        localStorage.setItem("password", newPassword);
+
+        alert("Password reset successful!");
+
+        showForm("login-form");
+
+      } else {
+
+        error.textContent = "Username not found!";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>

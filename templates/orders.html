@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders | Pharmacy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f3f6;
+      margin: 0;
+      padding: 0;
+    }
+       .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0fbff5;
+      padding: 15px;
+      color: white;
+    }
+    .header img {
+      height: 40px;
+    }
+ .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .nav-links button:hover {
+            background: white;
+            color: #0fbff5;
+}
+    .navbar {
+      background-color: #9fcffc;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .order-card {
+      background-color: #fff;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .order-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .product-info {
+      flex: 1;
+    }
+    .product-info p {
+      margin: 5px 0;
+    }
+    .order-actions {
+      text-align: right;
+    }
+    .btn {
+      padding: 8px 16px;
+      margin: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-cancel {
+      background-color: #f0ad4e;
+      color: white;
+    }
+    .btn-delete {
+      background-color: #d9534f;
+      color: white;
+    }
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #777;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="pharmacy.jpg" alt="Company Logo">
+<div class="nav-links">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='products.html'">Products</button>
+            <button onclick="location.href='add to cart.html'">Add to cart</button>
+	    <button onclick="location.href='orders.html'">Orders</button>
+            <button onclick="location.href='login2.html'">Login</button>
+        </div>
+  </div>
+  <div class="navbar">Your Orders</div>
+
+  <div class="container" id="ordersContainer"></div>
+
+  <script>
+    function loadOrders() {
+      const ordersContainer = document.getElementById("ordersContainer");
+      const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = '<div class="empty">No orders yet. Place something!</div>';
+        return;
+      }
+
+      ordersContainer.innerHTML = '';
+      orders.forEach((order, index) => {
+        const card = document.createElement("div");
+        card.className = "order-card";
+        card.innerHTML = `
+          <h3>Order #${index + 1}</h3>
+          <div class="order-details">
+            <div class="product-info">
+              <img src="${order.image}" alt="${order.name}" style="width: 80px; height: 80px; object-fit: contain;">
+              <p><strong>Product:</strong> ${order.name}</p>
+              <p><strong>Price:</strong> ₹${order.price}</p>
+              <p><strong>Status:</strong> <span id="status-${index}">${order.status}</span></p>
+              <p><strong>Customer:</strong> ${order.user?.name}</p>
+              <p><strong>Phone:</strong> ${order.user?.phone}</p>
+              <p><strong>Address:</strong> ${order.user?.address}</p>
+            </div>
+            <div class="order-actions">
+              <button class="btn btn-cancel" onclick="cancelOrder(${index})">Cancel</button>
+              <button class="btn btn-delete" onclick="deleteOrder(${index})">Delete</button>
+            </div>
+          </div>
+        `;
+        ordersContainer.appendChild(card);
+      });
+    }
+
+    function cancelOrder(index) {
+      const orders = JSON.parse(localStorage.getItem("orders")) || [];
+      orders[index].status = "Cancelled";
+      localStorage.setItem("orders", JSON.stringify(orders));
+      document.getElementById(`status-${index}`).innerText = "Cancelled";
+    }
+
+    function deleteOrder(index) {
+      const orders = JSON.parse(localStorage.getItem("orders")) || [];
+      orders.splice(index, 1);
+      localStorage.setItem("orders", JSON.stringify(orders));
+      loadOrders();
+    }
+
+    window.onload = loadOrders;
+  </script>
+</body>
+</html>

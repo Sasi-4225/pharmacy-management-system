@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diabetes - 24 Pharmacy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0fbff5;
+      padding: 15px;
+      color: white;
+    }
+    .header img {
+      height: 40px;
+    }
+    .nav-links button {
+      background: transparent;
+      border: 1px solid white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: 0.3s;
+    }
+    .nav-links button:hover {
+      background: white;
+      color: #0fbff5;
+    }
+    .navbar {
+      background-color: #9fcffc;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+    }
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .product {
+      background: white;
+      margin: 15px;
+      padding: 15px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-radius: 8px;
+    }
+    .product img {
+      max-height: 200px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 5px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+    }
+    .product p {
+      margin: 3px 0;
+    }
+    .product button {
+      padding: 10px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .product button:hover {
+      background-color: #333;
+    }
+    .footer {
+      background-color: black;
+      text-align: center;
+      padding: 10px;
+      color: white;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <script>
+    function addToCart(name, image, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name, image, price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} has been added to your cart!`);
+      if (confirm("Do you want to view your cart?")) {
+        window.location.href = 'add to cart.html';
+      }
+    }
+  </script>
+<script>
+  function addToCart(name, image, price) {
+    // Retrieve existing cart or initialize empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add new product to the cart
+    cart.push({ name, image, price });
+
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Show a confirmation popup
+    alert(`${name} has been added to your cart!`);
+
+    // Ask the user if they want to view the cart
+    let choice = confirm("Do you want to view your cart?");
+
+    // Redirect to orders.html if the user clicks OK
+    if (choice) {
+      window.location.href = 'add to cart.html';
+    }
+  }
+</script>
+</script>
+</head>
+<body>
+  <div class="header">
+    <img src="pharmacy.jpg" alt="Company Logo" />
+    <div class="nav-links">
+      <button onclick="location.href='home.html'">Home</button>
+      <button onclick="location.href='products.html'">Products</button>
+<button onclick="location.href='add to cart.html'">add to cart</button>
+
+      <button onclick="location.href='orders.html'">Orders</button>
+      <button onclick="location.href='login2.html'">Login</button>
+    </div>
+  </div>
+
+    <div class="navbar">Vitamins & Supplements</div>
+
+  <div class="product-container">
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/61FGJ8g4lKL.AC_UL640_FMwebp_QL65.jpg" alt="Vitamin C">
+      <h3>Vitamin C</h3>
+      <p>Strength: 500 mg</p>
+      <p>Form: Tablet</p>
+      <p><strong>Cost: 549/-</strong></p>
+      <button onclick="addToCart('Vitamin C', 'https://m.media-amazon.com/images/I/61FGJ8g4lKL.AC_UL640_FMwebp_QL65.jpg', 549)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/512i3WoBqGL.AC_UL640_FMwebp_QL65.jpg" alt="Vitamin D">
+      <h3>Vitamin D</h3>
+      <p>Strength: 1000 IU</p>
+      <p>Form: Capsule</p>
+      <p><strong>Cost: 350/-</strong></p>
+      <button onclick="addToCart('Vitamin D', 'https://m.media-amazon.com/images/I/512i3WoBqGL.AC_UL640_FMwebp_QL65.jpg', 350)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/51nhw8OSpDL.AC_UL640_FMwebp_QL65.jpg" alt="Vitamin E">
+      <h3>Vitamin E</h3>
+      <p>Strength: 400 IU</p>
+      <p>Form: Capsule</p>
+      <p><strong>Cost: 500/-</strong></p>
+      <button onclick="addToCart('Vitamin E', 'https://m.media-amazon.com/images/I/51nhw8OSpDL.AC_UL640_FMwebp_QL65.jpg', 500)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/61CVm4xU1SL.AC_UL640_FMwebp_QL65.jpg" alt="Multivitamin">
+      <h3>Multivitamin</h3>
+      <p>Strength: 60 Tablets</p>
+      <p>Form: Tablet</p>
+      <p><strong>Cost: 450/-</strong></p>
+      <button onclick="addToCart('Multivitamin', 'https://m.media-amazon.com/images/I/61CVm4xU1SL.AC_UL640_FMwebp_QL65.jpg', 450)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/51wrxRu4RmL.AC_UL640_FMwebp_QL65.jpg" alt="Omega-3">
+      <h3>Omega-3</h3>
+      <p>Strength: 1000 mg</p>
+      <p>Form: Softgel</p>
+      <p><strong>Cost: 600/-</strong></p>
+      <button onclick="addToCart('Omega-3', 'https://m.media-amazon.com/images/I/51wrxRu4RmL.AC_UL640_FMwebp_QL65.jpg', 600)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71WwWdrWtEL.AC_UL640_FMwebp_QL65.jpg" alt="Calcium">
+      <h3>Calcium</h3>
+      <p>Strength: 500 mg</p>
+      <p>Form: Tablet</p>
+      <p><strong>Cost: 550/-</strong></p>
+      <button onclick="addToCart('Calcium', 'https://m.media-amazon.com/images/I/71WwWdrWtEL.AC_UL640_FMwebp_QL65.jpg', 550)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71yQKFVecZL.AC_UL640_FMwebp_QL65.jpg" alt="Magnesium">
+      <h3>Magnesium</h3>
+      <p>Strength: 250 mg</p>
+      <p>Form: Capsule</p>
+      <p><strong>Cost: 750/-</strong></p>
+      <button onclick="addToCart('Magnesium', 'https://m.media-amazon.com/images/I/71yQKFVecZL.AC_UL640_FMwebp_QL65.jpg', 750)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/719rigSFgtL.AC_UL640_FMwebp_QL65.jpg" alt="Folic Acid">
+      <h3>Folic Acid</h3>
+      <p>Strength: 400 mcg</p>
+      <p>Form: Tablet</p>
+      <p><strong>Cost: 299/-</strong></p>
+      <button onclick="addToCart('Folic Acid', 'https://m.media-amazon.com/images/I/719rigSFgtL.AC_UL640_FMwebp_QL65.jpg', 299)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/61gFcLag4cL.AC_UL640_FMwebp_QL65.jpg" alt="Vitamin B12">
+      <h3>Vitamin B12</h3>
+      <p>Strength: 1000 mcg</p>
+      <p>Form: Tablet</p>
+      <p><strong>Cost: 350/-</strong></p>
+      <button onclick="addToCart('Vitamin B12', 'https://m.media-amazon.com/images/I/61gFcLag4cL.AC_UL640_FMwebp_QL65.jpg', 350)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/51N-ZGwLJrL.AC_UL640_FMwebp_QL65.jpg" alt="Zinc">
+      <h3>Zinc</h3>
+      <p>Strength: 50 mg</p>
+      <p>Form: Capsule</p>
+      <p><strong>Cost: 500/-</strong></p>
+      <button onclick="addToCart('Zinc', 'https://m.media-amazon.com/images/I/51N-ZGwLJrL.AC_UL640_FMwebp_QL65.jpg', 500)">Add to Cart</button>
+    </div>
+  </div>
+
+
+  <div class="footer">
+    &copy; 2025 24 Pharmacy. All rights reserved.
+  </div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - 24 Pharmacy</title>
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            margin:0;
+            padding:0;
+            background:#f8f9fa;
+        }
+
+        .header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:#0fbff5;
+            padding:15px;
+            color:white;
+        }
+
+        .header img{
+            height:40px;
+        }
+
+        .nav-links button{
+            background:transparent;
+            border:1px solid white;
+            color:white;
+            padding:8px 15px;
+            border-radius:5px;
+            cursor:pointer;
+            margin:0 5px;
+            transition:.3s;
+        }
+
+        .nav-links button:hover{
+            background:white;
+            color:#0fbff5;
+        }
+
+        .navbar{
+            background:#9fcffc;
+            color:white;
+            text-align:center;
+            padding:10px;
+            font-size:24px;
+        }
+
+        .product-container{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .product{
+            width:250px;
+            margin:15px;
+            background:white;
+            border-radius:8px;
+            overflow:hidden;
+            box-shadow:0 0 10px rgba(0,0,0,.1);
+        }
+
+        .product img{
+            width:100%;
+            display:block;
+        }
+
+        .product button{
+            width:100%;
+            padding:10px;
+            background:black;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .product button:hover{
+            background:#333;
+        }
+
+        .footer{
+            background:black;
+            color:white;
+            text-align:center;
+            padding:10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <img src="{% static 'images/pharmacy.jpg' %}" alt="Company Logo">
+
+    <div class="nav-links">
+
+        <button onclick="location.href='/home/'">Home</button>
+
+        <button onclick="location.href='/products/'">Products</button>
+
+        <button onclick="location.href='/cart/'">Add To Cart</button>
+
+        <button onclick="location.href='/orders/'">Orders</button>
+
+        <button onclick="location.href='/login/'">Login</button>
+
+    </div>
+
+</div>
+
+<div class="navbar">
+    Our Products
+</div>
+
+<div class="product-container" id="productContainer">
+
+</div>
+
+<div class="footer">
+    © 2025 Pharmacy Store. All Rights Reserved.
+</div>
+
+<script>
+
+function loadProducts(){
+
+fetch("/api/products/")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+let products=document.getElementById("productContainer");
+
+products.innerHTML="";
+
+data.forEach(product=>{
+
+products.innerHTML+=`
+
+<div class="product">
+
+<img src="/static/${product.image}">
+
+<h3 style="text-align:center;">
+${product.name}
+</h3>
+
+<p style="text-align:center;">
+₹${product.price}
+</p>
+
+<button onclick="addCart(${product.id})">
+
+Add To Cart
+
+</button>
+
+</div>
+
+`;
+
+});
+
+});
+
+}
+
+function addCart(id){
+
+fetch("/add-cart/"+id+"/")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+alert(data.message);
+
+});
+
+}
+
+window.onload=loadProducts;
+
+</script>
+
+</body>
+</html> 

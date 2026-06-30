@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - 24 Pharmacy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0fbff5;
+      padding: 15px;
+      color: white;
+    }
+    .header img {
+      height: 40px;
+    }
+ .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .nav-links button:hover {
+            background: white;
+            color: #0fbff5;
+}
+    .navbar {
+      background-color: #9fcffc;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+    }
+    .order-container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .order-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .order-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-right: 15px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      padding: 5px;
+    }
+    .order-item div {
+      flex-grow: 1;
+    }
+    .order-item p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .remove-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .remove-btn:hover {
+      background-color: darkred;
+    }
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .checkout-btn:hover {
+      background-color: #333;
+    }
+    .footer {
+      background-color: black;
+      text-align: center;
+      padding: 10px;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="{% static 'images/pharmacy.jpg' %}" alt="Company Logo">
+<div class="nav-links">
+            <button onclick="location.href='/home/'">Home</button>
+            <button onclick="location.href='/products/'">Products</button>
+            <button onclick="location.href='/cart/'">Add To Cart</button>
+	    <button onclick="location.href='/orders/'">Orders</button>
+            <button onclick="location.href='/login/'">Login</button>
+        </div>
+  </div>
+
+  <div class="navbar">Add to cart</div>
+
+  <div class="order-container" id="orderContainer">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+
+    <h2>Shipping Details</h2>
+    <input type="text" id="name" class="input-field" placeholder="Full Name" required>
+    <input type="text" id="phone" class="input-field" placeholder="+91XXXXXXXXXX" required>
+    <input type="text" id="address" class="input-field" placeholder="Address" required>
+
+    <button class="checkout-btn" onclick="checkout()">Place Order</button>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 24 Pharmacy. All rights reserved.
+  </div>
+
+  <script>
+    function loadCart(){
+
+    fetch("/cart-data/")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        const cartContainer = document.getElementById("cartItems");
+
+        cartContainer.innerHTML = "";
+
+        if(data.length == 0){
+
+            cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+
+            return;
+        }
+
+        data.forEach(item => {
+
+            cartContainer.innerHTML += `
+
+            <div class="order-item">
+
+                <img src="/static/${item.image}" alt="${item.name}">
+
+                <div>
+
+                    <p><strong>${item.name}</strong></p>
+
+                    <p>Price : ₹${item.price}</p>
+
+                    <p>Quantity : ${item.quantity}</p>
+
+                </div>
+
+                <button class="remove-btn"
+
+                onclick="removeFromCart(${item.id})">
+
+                Remove
+
+                </button>
+
+            </div>
+
+            `;
+
+        });
+
+    });
+
+}
+    function removeFromCart(id){
+
+    fetch("/remove-cart/"+id+"/")
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        alert(data.message);
+
+        loadCart();
+
+    });
+
+}
+
+    function checkout(){
+
+      const name=document.getElementById("name").value;
+
+      const phone=document.getElementById("phone").value;
+
+      const address=document.getElementById("address").value;
+
+      fetch("/checkout/",{
+
+        method:"POST",
+
+        headers:{
+
+          "Content-Type":"application/json"
+
+        },
+
+      body:JSON.stringify({
+
+      name:name,
+
+      phone:phone,
+
+      address:address
+
+    })
+
+  })
+
+  .then(response=>response.json())
+
+  .then(data=>{
+
+  if(data.status=="success"){
+
+    window.location.href="/payment/";
+
+  }
+
+else{
+
+alert(data.message);
+
+}
+
+});
+
+}
+window.onload = loadCart;
+  </script>
+
+</body>
+</html>
